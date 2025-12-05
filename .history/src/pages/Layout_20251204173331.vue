@@ -1,0 +1,97 @@
+<script setup>
+import { useRoute } from "vue-router";
+const route = useRoute();
+const year = new Date().getFullYear();
+</script>
+
+<template>
+  <div class="min-h-screen flex flex-col bg-base-200">
+    <!-- NAVBAR -->
+    <header class="navbar bg-base-100 shadow-sm px-6">
+      <div class="navbar-start">
+        <RouterLink to="/" class="btn btn-ghost text-2xl font-bold text-info"> AES SBOX </RouterLink>
+      </div>
+    </header>
+
+    <!-- HERO + INTRO hanya muncul di halaman utama -->
+    <template v-if="route.path === '/'">
+      <!-- HERO SECTION -->
+      <section class="min-h-[70vh] flex items-center justify-center bg-base-200 px-6">
+        <div class="max-w-4xl text-center animate-fade-in">
+          <h1 class="text-5xl md:text-6xl font-extrabold mb-6">
+            <span class="text-info">AES Encryption</span> S-Box Analyzer
+          </h1>
+
+          <p class="text-lg md:text-xl opacity-80 leading-relaxed max-w-3xl mx-auto">
+            Advanced Encryption Standard (AES) adalah algoritma kriptografi simetris yang menggunakan
+            <strong>S-Box</strong> untuk memberikan non-linearitas dan keamanan tingkat tinggi pada proses enkripsi.
+          </p>
+
+          <div class="flex flex-col md:flex-row justify-center gap-4 mt-10">
+            <RouterLink to="/encrypt" class="btn btn-primary btn-lg px-10"> Encrypt Data </RouterLink>
+
+            <RouterLink to="/decrypt" class="btn btn-outline btn-lg px-10"> Decrypt Data </RouterLink>
+          </div>
+        </div>
+      </section>
+
+      <!-- INTRODUCTION SECTION -->
+      <section class="py-20 bg-base-100 px-6 shadow-inner">
+        <div class="max-w-5xl mx-auto">
+          <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center text-info">Understanding the AES Algorithm</h2>
+
+          <p class="text-lg opacity-80 leading-relaxed mb-8">
+            AES bekerja menggunakan blok 128-bit dengan variasi kunci 128, 192, dan 256 bit. Setiap putaran enkripsi
+            terdiri dari beberapa operasi utama:
+          </p>
+
+          <ul class="space-y-4 text-lg opacity-90">
+            <li class="flex gap-3">
+              <span class="font-bold text-info">1.</span>
+              <span><strong>SubBytes</strong> — mengganti setiap byte menggunakan S-Box.</span>
+            </li>
+
+            <li class="flex gap-3">
+              <span class="font-bold text-info">2.</span>
+              <span><strong>ShiftRows</strong> — pergeseran baris dalam matrix state.</span>
+            </li>
+
+            <li class="flex gap-3">
+              <span class="font-bold text-info">3.</span>
+              <span><strong>MixColumns</strong> — mengacak kolom menggunakan operasi Galois Field.</span>
+            </li>
+
+            <li class="flex gap-3">
+              <span class="font-bold text-info">4.</span>
+              <span><strong>AddRoundKey</strong> — XOR state dengan round key.</span>
+            </li>
+          </ul>
+
+          <p class="text-lg opacity-80 mt-8">
+            S-Box AES memberikan ketahanan terhadap serangan linear dan diferensial, menjadikannya salah satu komponen
+            paling kritikal dalam keamanan cipher.
+          </p>
+        </div>
+      </section>
+    </template>
+
+    <!-- ROUTED PAGES -->
+    <main class="flex-grow container mx-auto px-4 py-8">
+      <RouterView />
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-base-100 py-8 shadow-inner mt-10">
+      <div class="container mx-auto flex flex-col items-center gap-4">
+        <nav class="flex flex-wrap gap-5 justify-center text-sm">
+          <RouterLink to="/about" class="link link-hover">About us</RouterLink>
+          <RouterLink to="/contact" class="link link-hover">Contact</RouterLink>
+          <RouterLink to="/jobs" class="link link-hover">Jobs</RouterLink>
+          <RouterLink to="/press" class="link link-hover">Press kit</RouterLink>
+        </nav>
+
+        <p class="text-sm opacity-70">© {{ year }} — All rights reserved</p>
+      </div>
+    </footer>
+  </div>
+</template>
